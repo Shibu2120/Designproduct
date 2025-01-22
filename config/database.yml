@@ -1,38 +1,12 @@
-
-# default: &default
-#   adapter: postgresql
-#   encoding: unicode
-#   # For details on connection pooling, see Rails configuration guide
-#   # https://guides.rubyonrails.org/configuring.html#database-pooling
-#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-
-# development:
-#   <<: *default
-#   database: design_product_development
- 
-# test:
-#   <<: *default
-#   database: design_product_test
-
-# production:
-#   <<: *default
-#   database: design_product_production
-#   username: design_product
-#   password: <%= ENV["DESIGN_PRODUCT_DATABASE_PASSWORD"] %>
-
 default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: db
-  username: design_product
-  password: <%= ENV["DESIGN_PRODUCT_DATABASE_PASSWORD"] %>
+  username: <%= ENV['DATABASE_USERNAME'] || 'shivani' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'test123' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  port: 5432
 
 development:
   <<: *default
   database: design_product_development
-
-test:
-  <<: *default
-  database: design_product_test

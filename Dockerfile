@@ -43,10 +43,14 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 
+RUN apt-get update && apt-get install -y dos2unix && \
+    find bin -type f -exec dos2unix {} + && \
+    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # Final stage for app image
 FROM base
